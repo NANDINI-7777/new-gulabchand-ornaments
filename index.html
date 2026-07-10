@@ -1,0 +1,3196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Gulabchand Ornaments | Legacy Jewelry Showcase</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Established in 1974, New Gulabchand Ornaments represents five decades of trust, craftsmanship, and pure gold. Explore our traditional Rajasthani designs, silver ornament collection, and custom bridal work in Jodhpur, Rajasthan.">
+  <meta name="keywords" content="New Gulabchand Ornaments, jewelry shop Jodhpur, Rajasthani jewelry, traditional gold jewelry, silver ornaments, custom jewelry Jodhpur, Rakesh Ji Soni, Gulabchand Ji Soni, Bhadwasiya Road jewelry">
+  <meta name="author" content="New Gulabchand Ornaments">
+  <meta property="og:title" content="New Gulabchand Ornaments | Legacy Jewelry Showcase">
+  <meta property="og:description" content="Discover five decades of trust and exquisite jewelry craftsmanship. Authentic Rajasthani designs, gold, silver, and custom bridal ornaments in Jodhpur.">
+  <meta property="og:image" content="images/shop.jpg">
+  <meta property="og:url" content="https://share.google/B9IzV4q6cglW467h4">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <!-- Socket.io for Anju Jewellery live rates -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+  <style>
+    /* -------------------------------------------------------------
+       DESIGN SYSTEM & VARIABLES (Modern Obsidian & Champagne Gold Theme)
+       ------------------------------------------------------------- */
+    :root {
+      --bg-dark: #070C09;          /* Deep Obsidian Green-Black */
+      --bg-card: rgba(20, 28, 24, 0.65); /* Hunter Emerald glass card */
+      --bg-hover: rgba(20, 28, 24, 0.9);
+      --accent-gold: #D4AF37;      /* Champagne Gold */
+      --accent-gold-dark: #8B6914; /* Antique Gold */
+      --accent-gold-light: #F3E5AB;/* Soft Vanilla Gold */
+      
+      --text-light: #F5F6F5;       /* Off-White */
+      --text-gold: #D4AF37;
+      --text-muted: #8E9A92;       /* Sage Green-Grey */
+      --border-gold: rgba(212, 175, 55, 0.2);
+      --border-gold-focus: rgba(212, 175, 55, 0.55);
+      
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'EB Garamond', serif;
+      --font-ui: 'Lato', sans-serif;
+      
+      --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      --transition-fast: all 0.25s ease;
+    }
+
+    /* Reset & Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      font-size: 1.125rem; /* 18px base */
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Headings & Text Hierarchy */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      color: var(--text-gold);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      font-size: 3.25rem; /* 52px */
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.25rem; /* 36px */
+      line-height: 1.3;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      color: var(--text-gold);
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 1px;
+      background-color: var(--accent-gold);
+      margin: 1rem auto 0;
+    }
+
+    h3 {
+      font-size: 1.625rem; /* ~26px */
+      line-height: 1.4;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    a {
+      color: var(--text-gold);
+      text-decoration: none;
+      transition: var(--transition-fast);
+    }
+
+    /* -------------------------------------------------------------
+       SCROLL PROGRESS BAR
+       ------------------------------------------------------------- */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent-gold), var(--accent-gold-light));
+      width: 0%;
+      z-index: 1002;
+      transition: width 0.1s ease-out;
+    }
+
+    /* -------------------------------------------------------------
+       REUSABLE UTILITIES & LAYOUTS
+       ------------------------------------------------------------- */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      padding: 8rem 0;
+      position: relative;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+    }
+
+    /* Elegant Soft Section unfolding reveals */
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(35px) scale(0.98);
+      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .reveal-section.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Custom Ornamental Dividers */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem auto;
+      max-width: 600px;
+      width: 80%;
+    }
+
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+    }
+
+    .divider-diamond {
+      width: 12px;
+      height: 12px;
+      background-color: var(--bg-dark);
+      transform: rotate(45deg);
+      margin: 0 1rem;
+      border: 1px solid var(--accent-gold);
+      position: relative;
+    }
+
+    /* -------------------------------------------------------------
+       1. STICKY NAVIGATION BAR (Modern Obsidian Glassmorphism)
+       ------------------------------------------------------------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 95px;
+      z-index: 1000;
+      background-color: rgba(7, 12, 9, 0.45);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+      display: flex;
+      align-items: center;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    header.scrolled {
+      background-color: rgba(7, 12, 9, 0.95);
+      height: 75px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid var(--accent-gold);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      transition: var(--transition-smooth);
+      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+    }
+
+    header.scrolled .logo-img {
+      height: 44px;
+    }
+
+    .logo-text {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-gold);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo-subtext {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--text-light);
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    /* Desktop Navigation Links */
+    .nav-menu {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--text-light);
+      opacity: 0.85;
+      padding: 0.5rem 0;
+      position: relative;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 1.5px;
+      background-color: var(--accent-gold);
+      transition: var(--transition-smooth);
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover {
+      color: var(--text-gold);
+      opacity: 1;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Mobile Hamburger Menu */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background-color: var(--text-light);
+      margin: 6px 0;
+      transition: var(--transition-smooth);
+      transform-origin: 0 0;
+    }
+
+    /* Active hamburger animations */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(2px, 0px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(0px, -1px);
+    }
+
+    /* -------------------------------------------------------------
+       2. HERO SECTION (Staggered Load Animations & Interactive Mouse Particles)
+       ------------------------------------------------------------- */
+    #home {
+      height: 100vh;
+      min-height: 600px;
+      background: radial-gradient(circle at center, #0B1610 0%, #030604 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: var(--text-light);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Floating gold dust container */
+    .particles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background-color: var(--accent-gold-light);
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) scale(0.5);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      position: relative;
+    }
+
+    /* Hero entrance stagger animations */
+    .hero-content > * {
+      opacity: 0;
+      transform: translateY(25px);
+      animation: heroFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .hero-logo {
+      height: clamp(140px, 20vw, 220px); /* Enlarged logo on landing page */
+      width: auto;
+      margin-bottom: 2.25rem;
+      filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.65));
+      animation: heroFadeInLogo 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      animation-delay: 0.2s;
+    }
+
+    .hero-est {
+      animation-delay: 0.5s;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      animation-delay: 0.7s;
+      /* ===== ANIMATED GOLD SHIMMER TEXT ===== */
+      background: linear-gradient(
+        90deg,
+        #b8860b 0%,
+        #D4AF37 20%,
+        #FFF5CC 40%,
+        #FFD700 50%,
+        #FFF5CC 60%,
+        #D4AF37 80%,
+        #b8860b 100%
+      );
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: heroFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+                 goldShimmer 4s linear 1.4s infinite;
+      text-shadow: none;
+      letter-spacing: 0.04em;
+    }
+
+    @keyframes goldShimmer {
+      0% { background-position: 250% center; }
+      100% { background-position: -250% center; }
+    }
+
+    /* Decorative sparkle dots around the title */
+    .hero-title-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFD700, transparent);
+      animation: sparklePop 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-sparkle:nth-child(1) { top: -8px; left: 5%; animation-delay: 0s; }
+    .hero-sparkle:nth-child(2) { top: -12px; left: 50%; animation-delay: 0.5s; }
+    .hero-sparkle:nth-child(3) { top: -8px; right: 5%; animation-delay: 1s; }
+    .hero-sparkle:nth-child(4) { bottom: -8px; left: 20%; animation-delay: 1.5s; }
+    .hero-sparkle:nth-child(5) { bottom: -8px; right: 20%; animation-delay: 0.8s; }
+    .hero-sparkle:nth-child(6) { top: 50%; left: -10px; animation-delay: 1.2s; }
+    .hero-sparkle:nth-child(7) { top: 50%; right: -10px; animation-delay: 0.3s; }
+
+    @keyframes sparklePop {
+      0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+      50% { transform: scale(1.8) rotate(45deg); opacity: 1; }
+    }
+
+    .hero-gold-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), var(--accent-gold-light), var(--accent-gold), transparent);
+      margin: 1.5rem 0 2rem;
+      transform: scaleX(0);
+      animation: heroExpandLine 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      animation-delay: 0.9s;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+      font-weight: 300;
+      color: #EFE6D9;
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      animation-delay: 1.1s;
+    }
+
+    @keyframes heroFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroFadeInLogo {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes heroExpandLine {
+      to {
+        transform: scaleX(1);
+        width: 85%;
+        opacity: 1;
+      }
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-gold-light);
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: var(--transition-fast);
+      z-index: 10;
+    }
+
+    .scroll-down:hover {
+      opacity: 1;
+      color: var(--text-light);
+    }
+
+    .scroll-down svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      animation: bounce 2s infinite;
+    }
+
+    /* -------------------------------------------------------------
+       3. LEGACY NUMBERS (STAT CARDS)
+       ------------------------------------------------------------- */
+    #stats {
+      background-color: var(--bg-dark);
+      padding: 6rem 0 3rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .stat-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      position: relative;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(4px);
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      pointer-events: none;
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.12);
+      transform: translateY(-6px);
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      font-weight: 600;
+      color: var(--text-gold);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .stat-label {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-light);
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    /* -------------------------------------------------------------
+       LIVE RATES SECTION (Simplified: Only Gold & Silver rates)
+       ------------------------------------------------------------- */
+    #rates {
+      background-color: var(--bg-dark);
+      padding: 3rem 0 6rem;
+    }
+
+    .rates-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .live-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(46, 196, 182, 0.08);
+      border: 1.5px solid rgba(46, 196, 182, 0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #2ec4b6;
+      font-weight: 700;
+    }
+
+    .live-dot-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: #2ec4b6;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.7);
+      animation: pulse 1.6s infinite;
+    }
+
+    /* Table Container Styling */
+    .rates-table-container {
+      width: 100%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      padding: 2rem;
+      position: relative;
+      backdrop-filter: blur(6px);
+      overflow-x: auto;
+    }
+
+    .rates-table-container::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      pointer-events: none;
+    }
+
+    .rates-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .rates-table th {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-gold);
+      padding: 1.25rem 1rem;
+      border-bottom: 2px solid var(--border-gold);
+      font-weight: 600;
+    }
+
+    .rates-table td {
+      padding: 1.5rem 1rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+      font-family: var(--font-ui);
+      font-weight: 500;
+      color: var(--text-light);
+      font-size: 1.05rem;
+      transition: background-color 0.4s ease;
+    }
+
+    .rates-table tr {
+      transition: var(--transition-fast);
+    }
+
+    .rates-table tr:hover td {
+      background-color: rgba(212, 175, 55, 0.03);
+    }
+
+    /* Product and Purity display styles */
+    .tbl-product-name {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      color: var(--text-light);
+      font-weight: 600;
+      display: block;
+    }
+
+    .tbl-purity {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.15rem;
+      display: block;
+    }
+
+    /* Live Rate flashing cell styling */
+    .tbl-price-cell {
+      font-family: var(--font-heading) !important;
+      font-size: 1.5rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.02em;
+    }
+
+    /* Flash classes */
+    .flash-up {
+      animation: flashGreenTbl 0.8s ease;
+    }
+
+    .flash-down {
+      animation: flashRedTbl 0.8s ease;
+    }
+
+    @keyframes flashGreenTbl {
+      0% { color: #2ec4b6; background-color: rgba(46, 196, 182, 0.08); }
+      100% { color: var(--text-light); background-color: transparent; }
+    }
+
+    @keyframes flashRedTbl {
+      0% { color: #e74c3c; background-color: rgba(231, 76, 60, 0.08); }
+      100% { color: var(--text-light); background-color: transparent; }
+    }
+
+    /* Sparkline SVG trend graph */
+    .sparkline-svg {
+      width: 100px;
+      height: 30px;
+      stroke: var(--accent-gold);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .sparkline-svg.up {
+      stroke: #27ae60;
+    }
+
+    .sparkline-svg.down {
+      stroke: #c0392b;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .trend-indicator.up {
+      color: #27ae60;
+    }
+
+    .trend-indicator.down {
+      color: #c0392b;
+    }
+
+    /* Info and disclaimer block styling */
+    .rates-info {
+      text-align: center;
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .rates-timestamp {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      color: var(--text-gold);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .rates-disclaimer {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* -------------------------------------------------------------
+       4. COLLECTION SHOWCASE (Tabbed Categorized Gallery)
+       ------------------------------------------------------------- */
+    #gallery {
+      background-color: var(--bg-dark);
+    }
+
+    /* Tab navigation */
+    .gallery-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .gallery-tab-btn {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 0.7rem 1.8rem;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1.5px solid var(--border-gold);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-tab-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.04));
+      opacity: 0;
+      transition: var(--transition-fast);
+    }
+
+    .gallery-tab-btn:hover {
+      color: var(--accent-gold);
+      border-color: var(--accent-gold);
+    }
+
+    .gallery-tab-btn:hover::before {
+      opacity: 1;
+    }
+
+    .gallery-tab-btn.active {
+      color: var(--bg-dark);
+      background: linear-gradient(135deg, #D4AF37, #F3E5AB);
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+    }
+
+    .gallery-tab-btn.active::before {
+      opacity: 0;
+    }
+
+    /* Gallery grid */
+    .gallery-panel {
+      display: none;
+    }
+
+    .gallery-panel.active {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      animation: fadeInPanel 0.5s ease forwards;
+    }
+
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 340px;
+      border: 1px solid var(--border-gold);
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      background-color: #0b1009;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(7, 12, 9, 0.96) 0%, rgba(7, 12, 9, 0) 100%);
+      padding: 2.5rem 1.5rem 1.5rem;
+      color: var(--text-light);
+      transform: translateY(40px);
+      opacity: 0;
+      transition: var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .gallery-overlay h3 {
+      font-size: 1.25rem;
+      color: var(--accent-gold-light);
+      font-family: var(--font-heading);
+    }
+
+    .gallery-overlay span {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-light);
+      opacity: 0.8;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.22);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Wide/featured card */
+    .gallery-item.featured {
+      grid-column: span 2;
+      height: 400px;
+    }
+
+    @media (max-width: 1200px) {
+      .gallery-panel.active {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item.featured {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-panel.active {
+        grid-template-columns: 1fr;
+      }
+      .gallery-item.featured {
+        grid-column: span 1;
+        height: 280px;
+      }
+      .gallery-item {
+        height: 260px;
+      }
+    }
+
+    /* Instagram CTA Banner */
+    .ig-cta-banner {
+      margin-top: 4rem;
+      position: relative;
+      border-radius: 16px;
+      padding: 2px; /* border thickness */
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #D4AF37, #f09433);
+      background-size: 300% 300%;
+      animation: igGradientShift 5s ease infinite;
+    }
+
+    @keyframes igGradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .ig-cta-inner {
+      background: linear-gradient(135deg, #0A0F0D, #0D1510);
+      border-radius: 14px;
+      padding: 3rem 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .ig-icon-wrapper {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(220, 39, 67, 0.35);
+      animation: igIconPulse 3s ease-in-out infinite;
+    }
+
+    .ig-icon-wrapper svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    @keyframes igIconPulse {
+      0%, 100% { box-shadow: 0 8px 25px rgba(220, 39, 67, 0.35); transform: scale(1); }
+      50% { box-shadow: 0 12px 35px rgba(220, 39, 67, 0.55); transform: scale(1.06); }
+    }
+
+    .ig-cta-text {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .ig-cta-heading {
+      font-family: var(--font-heading);
+      font-size: 1.65rem;
+      color: var(--text-gold);
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    .ig-cta-heading::after { display: none; } /* remove default h2 underline */
+
+    .ig-cta-sub {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .ig-cta-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .ig-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+    }
+
+    .ig-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .ig-btn-primary {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+    }
+
+    .ig-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(220, 39, 67, 0.5);
+    }
+
+    .ig-btn-secondary {
+      background: transparent;
+      color: var(--accent-gold-light);
+      border: 1.5px solid rgba(240, 148, 51, 0.45);
+    }
+
+    .ig-btn-secondary:hover {
+      background: rgba(240, 148, 51, 0.08);
+      border-color: #f09433;
+      color: #f09433;
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+      .ig-cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+      .ig-cta-heading { font-size: 1.35rem; }
+      .ig-cta-links { flex-direction: row; flex-wrap: wrap; }
+    }
+
+
+    /* -------------------------------------------------------------
+       5. OUR STORY SECTION
+       ------------------------------------------------------------- */
+    #story {
+      background-color: var(--bg-dark);
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .story-left {
+      position: relative;
+    }
+
+    /* Vintage-style Ornamental Border Frame */
+    .story-frame {
+      border: 1.5px solid var(--accent-gold);
+      padding: 3.5rem 3rem;
+      position: relative;
+      background-color: var(--bg-card);
+      backdrop-filter: blur(4px);
+    }
+
+    .story-frame::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border: 0.5px solid var(--accent-gold);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* Ornamental Corner Accents */
+    .story-frame-corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--accent-gold);
+      pointer-events: none;
+    }
+
+    .story-frame-corner.top-left {
+      top: -4px;
+      left: -4px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .story-frame-corner.top-right {
+      top: -4px;
+      right: -4px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .story-frame-corner.bottom-left {
+      bottom: -4px;
+      left: -4px;
+      border-right: none;
+      border-top: none;
+    }
+
+    .story-frame-corner.bottom-right {
+      bottom: -4px;
+      right: -4px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .story-label {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-gold);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .story-heading {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .story-text {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-light);
+      text-align: justify;
+      opacity: 0.9;
+    }
+
+    .story-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Story Jewelry Photo Frame */
+    .story-jewelry-frame {
+      width: 100%;
+      max-width: 380px;
+      position: relative;
+      border: 2px solid var(--accent-gold);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 0 0 6px rgba(212,175,55,0.08), 0 20px 50px rgba(0,0,0,0.5);
+      transition: var(--transition-smooth);
+      cursor: default;
+    }
+
+    .story-jewelry-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid rgba(212,175,55,0.3);
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 2px;
+    }
+
+    .story-jewelry-frame:hover {
+      box-shadow: 0 0 0 6px rgba(212,175,55,0.18), 0 25px 60px rgba(0,0,0,0.6);
+      transform: translateY(-4px);
+    }
+
+    .story-jewelry-img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.7s ease;
+    }
+
+    .story-jewelry-frame:hover .story-jewelry-img {
+      transform: scale(1.05);
+    }
+
+    .story-jewelry-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      background: linear-gradient(to top, rgba(7,12,9,0.92) 0%, transparent 100%);
+      color: var(--accent-gold-light);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1rem;
+      text-align: center;
+      padding: 2.5rem 1.5rem 1.25rem;
+      letter-spacing: 0.05em;
+      z-index: 3;
+    }
+
+
+    /* -------------------------------------------------------------
+       6. THE FAMILY - LEADERSHIP SECTION (Royal Arched Jharokha Frames)
+       ------------------------------------------------------------- */
+    #family {
+      background-color: var(--bg-dark);
+    }
+
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem;
+      margin-top: 4rem;
+    }
+
+    .family-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      padding: 4.5rem 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(4px);
+    }
+
+    .family-card::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      pointer-events: none;
+    }
+
+    .family-card:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.12);
+      transform: translateY(-4px);
+    }
+
+    /* Royal Rajasthani Jharokha (Arched Frame) layout to prevent cropping heads */
+    .family-image-wrapper {
+      position: relative;
+      width: 200px;
+      height: 275px;
+      border-radius: 100px 100px 12px 12px; /* Arch shape */
+      overflow: hidden;
+      margin-bottom: 2rem;
+      border: 3px solid var(--accent-gold);
+      background-color: #0B100D;
+      cursor: pointer;
+    }
+
+    .family-image-wrapper::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border: 1.5px solid var(--accent-gold-light);
+      border-radius: 105px 105px 16px 16px;
+      opacity: 0.3;
+      transform: scale(0.96);
+      transition: var(--transition-smooth);
+      pointer-events: none;
+    }
+
+    .family-card:hover .family-image-wrapper::after {
+      opacity: 1;
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+    }
+
+    .family-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 10%; /* Ensures turbans and faces are perfectly framed */
+      position: relative;
+      z-index: 2;
+      transition: var(--transition-smooth);
+    }
+
+    .family-card:hover .family-photo {
+      transform: scale(1.06);
+    }
+
+    .family-name {
+      font-size: 1.8rem;
+      color: var(--text-gold);
+      margin-bottom: 0.35rem;
+    }
+
+    .family-role {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-gold-light);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .family-desc {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--text-light);
+      opacity: 0.85;
+      max-width: 450px;
+    }
+
+    /* -------------------------------------------------------------
+       7. OUR CRAFT SECTION
+       ------------------------------------------------------------- */
+    #craft {
+      background-color: var(--bg-dark);
+    }
+
+    .craft-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .craft-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: var(--transition-smooth);
+      position: relative;
+      backdrop-filter: blur(4px);
+    }
+
+    .craft-card::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 1px solid rgba(212, 175, 55, 0.05);
+      pointer-events: none;
+      transition: var(--transition-smooth);
+    }
+
+    .craft-icon-wrapper {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(212, 175, 55, 0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      color: var(--text-gold);
+      transition: var(--transition-smooth);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .craft-icon-wrapper svg {
+      width: 36px;
+      height: 36px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.25;
+      transition: var(--transition-smooth);
+    }
+
+    .craft-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      color: var(--text-gold);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .craft-desc {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--text-light);
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    /* Hover effect: card lifts, border glows */
+    .craft-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+    }
+
+    .craft-card:hover::before {
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .craft-card:hover .craft-icon-wrapper {
+      background-color: var(--accent-gold);
+      color: var(--bg-dark);
+    }
+
+    /* -------------------------------------------------------------
+       8. TESTIMONIAL / TRUST QUOTE SECTION
+       ------------------------------------------------------------- */
+    #testimonial {
+      background-color: #0B130F; /* Deep Forest Obsidian */
+      color: var(--text-light);
+      text-align: center;
+      position: relative;
+      padding: 6.5rem 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    #testimonial::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .testimonial-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .testimonial-author {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-gold);
+      font-weight: 600;
+    }
+
+    /* -------------------------------------------------------------
+       9. VISIT US — CONTACT SECTION
+       ------------------------------------------------------------- */
+    #visit {
+      background-color: var(--bg-dark);
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 4.5rem;
+      align-items: stretch;
+    }
+
+    .visit-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .visit-heading {
+      text-align: left;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background-color: rgba(212, 175, 55, 0.06);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-gold);
+      flex-shrink: 0;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .contact-label {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-gold);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-value {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      color: var(--text-light);
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .contact-value a {
+      color: var(--text-light);
+      border-bottom: 1px dashed var(--accent-gold);
+      padding-bottom: 2px;
+      transition: var(--transition-fast);
+    }
+
+    .contact-value a:hover {
+      color: var(--text-gold);
+      border-bottom-style: solid;
+    }
+
+    .instagram-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .instagram-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      color: var(--text-light);
+      opacity: 0.9;
+      transition: var(--transition-fast);
+    }
+
+    .instagram-btn:hover {
+      color: var(--text-gold);
+      opacity: 1;
+    }
+
+    .instagram-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .map-wrapper {
+      width: 100%;
+      min-height: 400px;
+      height: 100%;
+      border: 1px solid var(--accent-gold);
+      position: relative;
+    }
+
+    .map-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      pointer-events: none;
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      filter: grayscale(15%) invert(90%) hue-rotate(180deg) sepia(10%); /* High contrast dark map styling */
+    }
+
+    /* -------------------------------------------------------------
+       10. FOOTER (High Contrast Obsidian Dark Mode)
+       ------------------------------------------------------------- */
+    footer {
+      background-color: #030604; /* Extra deep dark obsidian base */
+      border-top: 2px solid var(--accent-gold);
+      padding: 4.5rem 0 3rem;
+      text-align: center;
+      color: var(--text-light);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .footer-logo {
+      height: 65px;
+      width: auto;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); /* Perfectly visible in dark mode */
+    }
+
+    .footer-title {
+      font-family: var(--font-heading);
+      font-size: 1.625rem;
+      color: var(--text-gold);
+      letter-spacing: 0.03em;
+    }
+
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--accent-gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-copyright {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+       ------------------------------------------------------------- */
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0 3rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .craft-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      body {
+        font-size: 1.06rem;
+      }
+
+      .section {
+        padding: 6rem 0;
+      }
+
+      .story-layout {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+
+      .story-right {
+        order: -1;
+      }
+
+      .family-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .visit-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      
+      .map-wrapper {
+        min-height: 350px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background-color: #070C09;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        z-index: 1000;
+        transition: right 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        border-left: 1px solid var(--accent-gold);
+      }
+
+      .nav-menu.active {
+        right: 0;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .stat-card {
+        padding: 2.25rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .logo-text {
+        font-size: 1.15rem;
+      }
+
+      .logo-subtext {
+        font-size: 0.55rem;
+      }
+
+      header.scrolled {
+        height: 65px;
+      }
+
+      .story-frame {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .family-card {
+        padding: 3rem 1.5rem;
+      }
+
+      .family-image-wrapper {
+        width: 150px;
+        height: 200px;
+      }
+
+      .craft-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress"></div>
+
+  <!-- Floating Particles Background for Hero -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- 1. STICKY NAVIGATION BAR (Modern Obsidian Glassmorphism) -->
+  <header id="main-header">
+    <div class="container nav-container">
+      <a href="#home" class="logo-link">
+        <img src="images/logo.png" alt="New Gulabchand Ornaments Logo" class="logo-img">
+        <span class="logo-text">
+          New Gulabchand
+          <span class="logo-subtext">ORNAMENTS</span>
+        </span>
+      </a>
+      
+      <nav>
+        <ul class="nav-menu" id="nav-links">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#story" class="nav-link">Our Legacy</a></li>
+          <li><a href="#family" class="nav-link">The Family</a></li>
+          <li><a href="#craft" class="nav-link">Our Craft</a></li>
+          <li><a href="#visit" class="nav-link">Visit Us</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" id="menu-toggle" aria-label="Toggle Navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION -->
+  <section id="home">
+    <div class="hero-content">
+      <img src="images/logo.png" alt="New Gulabchand Ornaments Logo" class="hero-logo">
+      <span class="hero-est">Est. 1974 · Jodhpur</span>
+      <div class="hero-title-wrapper">
+        <!-- Sparkle dots -->
+        <span class="hero-sparkle"></span>
+        <span class="hero-sparkle"></span>
+        <span class="hero-sparkle"></span>
+        <span class="hero-sparkle"></span>
+        <span class="hero-sparkle"></span>
+        <span class="hero-sparkle"></span>
+        <span class="hero-sparkle"></span>
+        <h1 class="hero-title">New Gulabchand Ornaments</h1>
+      </div>
+      <div class="hero-gold-line"></div>
+      <p class="hero-subtitle">Five Decades of Trust, Craft &amp; Gold</p>
+    </div>
+    
+    <div class="scroll-down" onclick="scrollToSection('#stats')">
+      <span>Our Legacy</span>
+      <svg viewBox="0 0 24 24">
+        <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- 3. LEGACY NUMBERS (STAT CARDS) -->
+  <section id="stats" class="section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" data-target="50" data-suffix="+">0</div>
+          <div class="stat-label">Years of Crafted Trust</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="3" data-suffix="">0</div>
+          <div class="stat-label">Generations of Heritage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="1000" data-suffix="s of">0</div>
+          <div class="stat-label">Families Served with Love</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE RATES SECTION (Filtered: Only Gold & Silver live rates) -->
+  <section id="rates" class="section">
+    <div class="container">
+      <div class="rates-header">
+        <div class="live-indicator">
+          <span class="live-dot-pulse"></span>
+          Live Jodhpur rates
+        </div>
+        <h2>Gold & Silver Live Rates</h2>
+      </div>
+      
+      <div class="rates-table-container">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Purity</th>
+              <th>Live Rate (INR)</th>
+              <th>Today's High</th>
+              <th>Today's Low</th>
+              <th>Trend</th>
+              <th>Sparkline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Gold 24K -->
+            <tr id="gold-999-row">
+              <td>
+                <span class="tbl-product-name">Gold 24K</span>
+              </td>
+              <td>10 Grams / 99.9% Pure</td>
+              <td class="tbl-price-cell" id="rate-gold-999">₹1,57,500</td>
+              <td id="high-gold-999">₹1,57,800</td>
+              <td id="low-gold-999">₹1,57,200</td>
+              <td>
+                <span class="trend-indicator up" id="trend-gold-999">
+                  ▲ +0.00%
+                </span>
+              </td>
+              <td>
+                <svg class="sparkline-svg up" id="spark-gold-999" viewBox="0 0 100 30">
+                  <path d="M 0 20 Q 20 25 40 10 T 80 5 T 100 12" />
+                </svg>
+              </td>
+            </tr>
+            <!-- Gold 22K -->
+            <tr id="gold-22k-row">
+              <td>
+                <span class="tbl-product-name">Gold 22K</span>
+              </td>
+              <td>10 Grams / 91.6% Hallmark</td>
+              <td class="tbl-price-cell" id="rate-gold-22k">₹1,44,300</td>
+              <td id="high-gold-22k">₹1,44,500</td>
+              <td id="low-gold-22k">₹1,44,000</td>
+              <td>
+                <span class="trend-indicator up" id="trend-gold-22k">
+                  ▲ +0.00%
+                </span>
+              </td>
+              <td>
+                <svg class="sparkline-svg up" id="spark-gold-22k" viewBox="0 0 100 30">
+                  <path d="M 0 22 Q 20 18 40 15 T 80 10 T 100 8" />
+                </svg>
+              </td>
+            </tr>
+            <!-- Silver 999 -->
+            <tr id="silver-999-row">
+              <td>
+                <span class="tbl-product-name">Silver 999</span>
+              </td>
+              <td>1 Kilogram / 99.9% Pure Bar</td>
+              <td class="tbl-price-cell" id="rate-silver-999">₹2,53,800</td>
+              <td id="high-silver-999">₹2,54,500</td>
+              <td id="low-silver-999">₹2,53,000</td>
+              <td>
+                <span class="trend-indicator up" id="trend-silver-999">
+                  ▲ +0.00%
+                </span>
+              </td>
+              <td>
+                <svg class="sparkline-svg up" id="spark-silver-999" viewBox="0 0 100 30">
+                  <path d="M 0 8 Q 20 5 40 18 T 80 22 T 100 25" />
+                </svg>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="rates-info">
+        <div class="rates-timestamp" id="rates-time">Last Updated: Loading rates board...</div>
+        <p class="rates-disclaimer">
+          * Rates are derived from real-time global spot feeds of gold (XAU) and silver (XAG) converted via USD-INR exchange rate, adjusted for Indian import duties & local Jodhpur wholesale bullion market premiums. These are indicative and subject to change; contact showroom directly to book rates.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. COLLECTION SHOWCASE (Tabbed Categorized Gallery) -->
+  <section id="gallery" class="reveal-section section">
+    <div class="container">
+      <h2>Our Collections</h2>
+
+      <!-- Category Tabs -->
+      <div class="gallery-tabs" role="tablist">
+        <button class="gallery-tab-btn active" data-panel="all" role="tab" aria-selected="true" id="tab-all">All Pieces</button>
+        <button class="gallery-tab-btn" data-panel="gold" role="tab" aria-selected="false" id="tab-gold">Gold</button>
+        <button class="gallery-tab-btn" data-panel="silver" role="tab" aria-selected="false" id="tab-silver">Silver</button>
+        <button class="gallery-tab-btn" data-panel="traditional" role="tab" aria-selected="false" id="tab-traditional">Traditional</button>
+        <button class="gallery-tab-btn" data-panel="bridal" role="tab" aria-selected="false" id="tab-bridal">Bridal</button>
+        <button class="gallery-tab-btn" data-panel="platinum" role="tab" aria-selected="false" id="tab-platinum">Platinum (AD)</button>
+      </div>
+
+      <!-- ALL PANEL -->
+      <div class="gallery-panel active" id="panel-all" role="tabpanel">
+        <div class="gallery-item featured">
+          <img src="images/jewelry_bridal_flatlay.png" alt="Rajasthani Bridal Gold Jewelry Set Flatlay" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Grand Bridal Collection</h3>
+            <span>Complete Rajasthani bridal ensembles</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_necklace.png" alt="Gold Necklace" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Royal Necklaces</h3>
+            <span>Heritage gold Aad &amp; haar sets</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_bangles.png" alt="Gold Bangles" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Traditional Bangles</h3>
+            <span>22k meenakari kadas &amp; bangles</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_earrings.png" alt="Gold Jhumka Earrings" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Jhumka &amp; Earrings</h3>
+            <span>Classic Rajasthani jhumka designs</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_rings.png" alt="Gold Rings" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Gold Rings</h3>
+            <span>Hallmarked custom &amp; signature rings</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_maangtikka.png" alt="Maang Tikka" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Maang Tikka</h3>
+            <span>Kundan &amp; pearl bridal head pieces</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_choker.png" alt="Gold Choker Necklace" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Gold Choker</h3>
+            <span>Meenakari kundan choker necklaces</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_pendant.png" alt="Gold Pendant Necklace" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Gold Pendants</h3>
+            <span>Polki diamond &amp; ruby pendant sets</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_anklet.png" alt="Silver Anklet Payal" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Payal &amp; Anklets</h3>
+            <span>Pure silver filigree payal</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_nosering.png" alt="Gold Nose Ring Nath" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Nath &amp; Nose Pins</h3>
+            <span>Traditional Rajasthani nath collection</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gold_bangles_set.png" alt="Designer Gold Bangles Set" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Designer Gold Bangles</h3>
+            <span>Heavy designer meenakari bangles set</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gold_ring_collection.png" alt="Gold Rings Collection" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Signature Gold Rings</h3>
+            <span>Unique handcrafted gold ring designs</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/silver_necklace_set.png" alt="Designer Silver Necklace Set" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Antique Silver Sets</h3>
+            <span>999 pure silver handcrafted necklaces</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="images/jewelry_platinum.png" alt="Platinum AD Jewelry" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Platinum (AD) Jewelry</h3>
+            <span>Modern sleek platinum &amp; AD sets</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GOLD PANEL -->
+      <div class="gallery-panel" id="panel-gold" role="tabpanel">
+        <div class="gallery-item featured">
+          <img src="images/jewelry_necklace.png" alt="Gold Necklace Set" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Royal Gold Necklace Set</h3>
+            <span>Filigree work with gemstone accents</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_choker.png" alt="Gold Choker" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Meenakari Choker</h3>
+            <span>Kundan &amp; enamel gold choker</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_pendant.png" alt="Gold Pendant" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Gold Pendants</h3>
+            <span>Polki diamond pendant necklaces</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_bangles.png" alt="Gold Bangles" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Meenakari Bangles</h3>
+            <span>22k hallmark gold with enamel</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gold_bangles_set.png" alt="Designer Gold Bangles Set" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Designer Gold Bangles</h3>
+            <span>Heavy designer meenakari bangles set</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gold_ring_collection.png" alt="Gold Rings Collection" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Designer Gold Rings</h3>
+            <span>Handcrafted gold rings collection</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SILVER PANEL (Corrected: No Gold items mixed) -->
+      <div class="gallery-panel" id="panel-silver" role="tabpanel">
+        <div class="gallery-item featured">
+          <img src="images/jewelry_silver.png" alt="Silver Ornaments" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Pure Silver Collection</h3>
+            <span>999 pure silver payal &amp; ornaments</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_anklet.png" alt="Silver Anklet" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Silver Payal &amp; Anklets</h3>
+            <span>Fine filigree 999 silver payal</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/silver_necklace_set.png" alt="Designer Silver Necklace Set" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Antique Silver Sets</h3>
+            <span>999 pure silver handcrafted necklaces</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRADITIONAL PANEL -->
+      <div class="gallery-panel" id="panel-traditional" role="tabpanel">
+        <div class="gallery-item featured">
+          <img src="images/jewelry_necklace.png" alt="Traditional Rajasthani Necklace" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Rajputi Aad &amp; Haar</h3>
+            <span>Authentic heritage necklace styles</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_nosering.png" alt="Traditional Nath" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Rajasthani Nath</h3>
+            <span>Traditional large bridal nose rings</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_maangtikka.png" alt="Maang Tikka" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Borla &amp; Rakhdi</h3>
+            <span>Traditional Rajasthani head pieces</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_bangles.png" alt="Traditional Bangles" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Kundan Kadas</h3>
+            <span>Jadau &amp; kundan work bangles</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_anklet.png" alt="Traditional Anklet" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Payal &amp; Anklets</h3>
+            <span>Traditional silver foot ornaments</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_earrings.png" alt="Traditional Earrings" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Jhumka Collection</h3>
+            <span>Heritage Rajasthani jhumkas</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gold_bangles_set.png" alt="Designer Gold Bangles Set" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Traditional Gold Bangles</h3>
+            <span>Heritage design meenakari bangles set</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRIDAL PANEL -->
+      <div class="gallery-panel" id="panel-bridal" role="tabpanel">
+        <div class="gallery-item featured">
+          <img src="images/jewelry_bridal_flatlay.png" alt="Complete Bridal Set Flatlay" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Complete Bridal Ensemble</h3>
+            <span>Necklace, tikka, bangles &amp; ring</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_maangtikka.png" alt="Bridal Maang Tikka" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Maang Tikka</h3>
+            <span>Kundan pearl bridal head jewels</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_necklace.png" alt="Bridal Necklace" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Bridal Necklace Sets</h3>
+            <span>Heavy gold kundan bridal necklaces</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_nosering.png" alt="Bridal Nath" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Bridal Nath</h3>
+            <span>Pearl-embellished bridal nose rings</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_bangles.png" alt="Bridal Bangles" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Chooda &amp; Bangles</h3>
+            <span>Auspicious bridal bangle sets</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PLATINUM PANEL -->
+      <div class="gallery-panel" id="panel-platinum" role="tabpanel">
+        <div class="gallery-item featured">
+          <img src="images/jewelry_platinum.png" alt="Platinum AD Jewelry" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Platinum &amp; AD Sets</h3>
+            <span>Modern platinum jewelry &amp; AD stones</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_rings.png" alt="Platinum Rings" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>Platinum Rings</h3>
+            <span>Contemporary platinum band &amp; solitaire</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_pendant.png" alt="AD Pendant" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>AD Pendant Sets</h3>
+            <span>American Diamond pendant necklaces</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/jewelry_earrings.png" alt="AD Earrings" loading="lazy">
+          <div class="gallery-overlay">
+            <h3>AD Earrings</h3>
+            <span>American Diamond glam earrings</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSTAGRAM CTA BANNER -->
+      <div class="ig-cta-banner">
+        <div class="ig-cta-inner">
+          <div class="ig-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="ig-cta-text">
+            <h3 class="ig-cta-heading">Explore More Designs on Instagram</h3>
+            <p class="ig-cta-sub">Follow us for daily jewelry inspiration, new arrivals &amp; exclusive Rajasthani collections</p>
+          </div>
+          <div class="ig-cta-links">
+            <a href="https://www.instagram.com/new_gulabchand_ornaments?igsh=MWJ3NDBmemUxMzN3ag==" target="_blank" rel="noopener noreferrer" class="ig-btn ig-btn-primary">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              @new_gulabchand_ornaments
+            </a>
+            <a href="https://www.instagram.com/newgulabchand_ornaments?igsh=MXVzNzIwb2M5d2N3aA==" target="_blank" rel="noopener noreferrer" class="ig-btn ig-btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              @newgulabchand_ornaments
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. OUR STORY SECTION -->
+  <section id="story" class="section reveal-section">
+    <div class="container">
+      <div class="story-layout">
+        <div class="story-left">
+          <div class="story-frame">
+            <span class="story-frame-corner top-left"></span>
+            <span class="story-frame-corner top-right"></span>
+            <span class="story-frame-corner bottom-left"></span>
+            <span class="story-frame-corner bottom-right"></span>
+            
+            <span class="story-label">The Foundation</span>
+            <h2 class="story-heading">A Legacy Born of Pure Craft</h2>
+            <p class="story-text">
+              In 1974, Shri Gulabchand Ji Soni began a small but proud journey in the heart of Jodhpur. With nothing but skill, integrity, and a love for fine gold, he built what would become a name trusted by thousands of families across Rajasthan.
+            </p>
+            <p class="story-text" style="margin-bottom: 0;">
+              For fifty years, our devotion has remained unchanged. Every hammer strike on raw metal, every custom weld, and every polished ornament carries the legacy of transparency and purity. To us, jewelry is not merely gold or silver; it is an heirloom that keeps memories alive across generations.
+            </p>
+          </div>
+        </div>
+        
+        <div class="story-right">
+          <div class="story-jewelry-frame">
+            <img src="images/story_jewelry.png" alt="Traditional Indian gold jewelry display on dark velvet" class="story-jewelry-img">
+            <div class="story-jewelry-caption">Crafted with love since 1974</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider">
+    <span class="divider-diamond"></span>
+  </div>
+
+  <!-- 6. THE FAMILY — LEADERSHIP SECTION (Palace Jharokha Arched Frames) -->
+  <section id="family" class="section reveal-section">
+    <div class="container">
+      <h2>The Heart Behind the Gold</h2>
+      
+      <div class="family-grid">
+        <!-- Founder Card -->
+        <div class="family-card">
+          <div class="family-image-wrapper">
+            <img src="images/founder.jpg" alt="Shri Gulabchand Ji Soni" class="family-photo">
+          </div>
+          <h3 class="family-name">Shri Gulabchand Ji Soni</h3>
+          <span class="family-role">Legacy Founder · Est. 1974</span>
+          <p class="family-desc">
+            A visionary craftsman who founded our house on absolute transparency, uncompromising purity, and dedicated customer relationships. His principles remain our guiding light.
+          </p>
+        </div>
+
+        <!-- Current Owner Card -->
+        <div class="family-card">
+          <div class="family-image-wrapper">
+            <img src="images/owner.jpg" alt="Shri Rakesh Ji Soni" class="family-photo">
+          </div>
+          <h3 class="family-name">Shri Rakesh Ji Soni</h3>
+          <span class="family-role">Proprietor / Current Owner</span>
+          <p class="family-desc">
+            Carrying forward the sacred family trust into the modern era, committed to preserving pure gold standards, bespoke Rajasthani designs, and our personal family connection with you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider">
+    <span class="divider-diamond"></span>
+  </div>
+
+  <!-- 7. OUR CRAFT SECTION -->
+  <section id="craft" class="section reveal-section">
+    <div class="container">
+      <h2>What We Do</h2>
+      
+      <div class="craft-grid">
+        <!-- Card 1 -->
+        <div class="craft-card">
+          <div class="craft-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <h3 class="craft-title">Gold Ornaments</h3>
+          <p class="craft-desc">Exquisite collection of 22k and 18k certified hallmark gold jewelry, reflecting timeless brilliance.</p>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="craft-card">
+          <div class="craft-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8" />
+              <path d="M12 2a10 10 0 0 1 10 10" stroke-dasharray="3,3" />
+              <path d="M12 22a10 10 0 0 1-10-10" stroke-dasharray="3,3" />
+            </svg>
+          </div>
+          <h3 class="craft-title">Silver Jewelry</h3>
+          <p class="craft-desc">Crafted pure silver ornaments, utensils, and idols with fine details for your auspicious moments.</p>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="craft-card">
+          <div class="craft-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <circle cx="12" cy="11" r="3" />
+            </svg>
+          </div>
+          <h3 class="craft-title">Traditional Rajasthani</h3>
+          <p class="craft-desc">Authentic Rajputi Aad, Jhumkas, Rakhdi, and Jadau jewelry made by specialized Jodhpur artisans.</p>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="craft-card">
+          <div class="craft-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z" />
+            </svg>
+          </div>
+          <h3 class="craft-title">Custom & Bridal</h3>
+          <p class="craft-desc">Tailor-made designs created to bring your dreams to life, including premium platinum (AD) jewelry.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. TESTIMONIAL / TRUST QUOTE -->
+  <section id="testimonial">
+    <div class="testimonial-content">
+      <p class="testimonial-quote">
+        "Families have trusted us for generations — not just for gold, but for the bond we share."
+      </p>
+      <div class="testimonial-author">
+        — The House of New Gulabchand Ornaments
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. VISIT US — CONTACT SECTION -->
+  <section id="visit" class="section reveal-section">
+    <div class="container">
+      <div class="visit-grid">
+        <div class="visit-details">
+          <h2 class="visit-heading">Visit Our Showroom</h2>
+          
+          <!-- Address -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Address</div>
+              <div class="contact-value">
+                Bhadwasiya Main Road,<br>
+                (In front of New Mother Dairy),<br>
+                Jodhpur, Rajasthan, 342007
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phone -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.27 11.72 11.72 0 0 0 3.7.59 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.72 11.72 0 0 0 .59 3.7 1 1 0 0 1-.27 1.11l-2.2 2.2z" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Phone & Call</div>
+              <div class="contact-value">
+                <a href="tel:9460251164">+91 94602 51164</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- WhatsApp -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">WhatsApp Connect</div>
+              <div class="contact-value">
+                <a href="https://wa.me/919782372150" target="_blank" rel="noopener noreferrer">+91 97823 72150</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Opening Hours -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Opening Hours</div>
+              <div class="contact-value">
+                Monday – Sunday: 11:00 AM – 8:00 PM
+              </div>
+            </div>
+          </div>
+
+          <!-- Socials -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Follow Us on Instagram</div>
+              <div class="instagram-links">
+                <a href="https://www.instagram.com/new_gulabchand_ornaments?igsh=MWJ3NDBmemUxMzN3ag==" target="_blank" rel="noopener noreferrer" class="instagram-btn">
+                  @new_gulabchand_ornaments
+                </a>
+                <a href="https://www.instagram.com/newgulabchand_ornaments?igsh=MXVzNzIwb2M5d2N3aA==" target="_blank" rel="noopener noreferrer" class="instagram-btn">
+                  @newgulabchand_ornaments
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Google Map Embedding -->
+        <div class="map-wrapper">
+          <iframe 
+            src="https://maps.google.com/maps?q=New%20Gulabchand%20Ornament%20Bhadwasiya%20Road%20Jodhpur&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+            class="map-iframe" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Google Maps Location for New Gulabchand Ornaments">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <img src="images/logo.png" alt="New Gulabchand Ornaments Logo" class="footer-logo">
+      <h3 class="footer-title">New Gulabchand Ornaments</h3>
+      <p class="footer-tagline">Crafted with love. Trusted for generations.</p>
+      
+      <p style="font-size: 0.95rem; color: #DFCA85; font-family: var(--font-ui); letter-spacing: 0.05em; margin-top: 0.5rem;">
+        ESTD. 1974 · JODHPUR, RAJASTHAN · <a href="https://share.google/B9IzV4q6cglW467h4" target="_blank" rel="noopener noreferrer" style="color: #FAF6EF; font-weight: 700; border-bottom: 1px solid #FAF6EF;">FIND US ON GOOGLE MAPS</a>
+      </p>
+
+      <p class="footer-copyright">
+        © 2026 New Gulabchand Ornaments. All Rights Reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- -------------------------------------------------------------
+       JAVASCRIPT FOR INTERACTIVE FEATURES
+       ------------------------------------------------------------- -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      /* ==========================================
+         SCROLL PROGRESS INDICATOR
+         ========================================== */
+      window.addEventListener("scroll", () => {
+        const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+      });
+
+      /* ==========================================
+         FLOATING GOLD PARTICLES GENERATOR (Interactive on mousemove)
+         ========================================== */
+      const particlesContainer = document.getElementById("particles");
+      const particleCount = 45;
+      const particlesList = [];
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        
+        const size = Math.random() * 4 + 2; // 2px - 6px
+        particle.style.width = size + "px";
+        particle.style.height = size + "px";
+        particle.style.left = Math.random() * 100 + "%";
+        particle.style.animationDelay = Math.random() * 10 + "s";
+        particle.style.animationDuration = (Math.random() * 6 + 7) + "s"; // 7s - 13s
+        
+        particlesContainer.appendChild(particle);
+        particlesList.push(particle);
+      }
+
+      // Dynamic mouse interaction: drift particles slightly toward mouse position
+      const heroSec = document.getElementById("home");
+      heroSec.addEventListener("mousemove", (e) => {
+        const rect = heroSec.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        
+        particlesList.forEach(p => {
+          const pRect = p.getBoundingClientRect();
+          const pX = pRect.left + pRect.width / 2 - rect.left;
+          const pY = pRect.top + pRect.height / 2 - rect.top;
+          
+          const dx = mouseX - pX;
+          const dy = mouseY - pY;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          
+          if (dist < 200) {
+            const force = (200 - dist) / 20; // gentle pull strength
+            p.style.transform = `translate(${dx/force}px, ${dy/force}px)`;
+          } else {
+            p.style.transform = 'translate(0, 0)';
+          }
+        });
+      });
+
+      heroSec.addEventListener("mouseleave", () => {
+        particlesList.forEach(p => {
+          p.style.transform = 'translate(0, 0)';
+        });
+      });
+
+      /* ==========================================
+         MOBILE HAMBURGER MENU TOGGLE
+         ========================================== */
+      const menuToggle = document.getElementById("menu-toggle");
+      const navMenu = document.getElementById("nav-links");
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          menuToggle.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      /* ==========================================
+         STICKY NAVIGATION SCROLL EFFECT
+         ========================================== */
+      const header = document.getElementById("main-header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      /* ==========================================
+         SMOOTH SCROLLING FOR ALL NAV LINKS
+         ========================================== */
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            const headerHeight = header.offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+
+      /* ==========================================
+         SCROLL-TRIGGERED FADE-IN (Intersection Observer)
+         ========================================== */
+      const sections = document.querySelectorAll(".reveal-section");
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      sections.forEach(section => {
+        sectionObserver.observe(section);
+      });
+
+      /* ==========================================
+         NAVIGATION HIGHLIGHT ON SCROLL
+         ========================================== */
+      const navSections = document.querySelectorAll("section");
+      window.addEventListener("scroll", () => {
+        let currentSectionId = "";
+        const scrollPosition = window.scrollY + header.offsetHeight + 100;
+
+        navSections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            currentSectionId = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${currentSectionId}`) {
+            link.classList.add("active");
+          }
+        });
+      });
+
+      /* ==========================================
+         STAT COUNTER ANIMATION
+         ========================================== */
+      const statNumbers = document.querySelectorAll(".stat-number");
+      let countStarted = false;
+
+      const runCounter = () => {
+        statNumbers.forEach(stat => {
+          const target = parseInt(stat.getAttribute("data-target"), 10);
+          const suffix = stat.getAttribute("data-suffix");
+          let current = 0;
+          const duration = 2000;
+          const stepTime = Math.max(Math.floor(duration / target), 15);
+          
+          const timer = setInterval(() => {
+            current += Math.ceil(target / (duration / stepTime));
+            if (current >= target) {
+              clearInterval(timer);
+              stat.innerText = target + suffix;
+            } else {
+              stat.innerText = current + suffix;
+            }
+          }, stepTime);
+        });
+      };
+
+      const statsSection = document.getElementById("stats");
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !countStarted) {
+            countStarted = true;
+            runCounter();
+            statsObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.3
+      });
+
+      statsObserver.observe(statsSection);
+
+      /* ==========================================
+         LIVE BULLION RATES — HB Jodhpur SignalR Feed
+         ========================================== */
+
+      // Fallback prices if Socket.io is unavailable (2026 current rates)
+      let rates = { 'gold-999': 157500, 'gold-22k': 144300, 'silver-999': 253800 };
+      let baselines = { 'gold-999': 157500, 'gold-22k': 144300, 'silver-999': 253800 };
+      let baselineSet = false;
+
+      // Sparklines dynamic drawer
+      function drawSparkline(id, pointsArray) {
+        const svg = document.getElementById(`spark-${id}`);
+        if (!svg) return;
+        const path = svg.querySelector('path');
+        if (!path) return;
+        let pathStr = `M 0 ${pointsArray[0]} `;
+        for (let i = 1; i < pointsArray.length; i++) pathStr += `L ${i * 20} ${pointsArray[i]} `;
+        path.setAttribute('d', pathStr);
+      }
+
+      // Rolling price history window for scaling live sparklines (6 points)
+      let priceHistories = {
+        'gold-999': [],
+        'gold-22k': [],
+        'silver-999': []
+      };
+
+      // Initialize histories with fluctuating simulated values around current price
+      function initPriceHistory(id, startPrice) {
+        const history = [];
+        let current = startPrice;
+        for (let i = 0; i < 6; i++) {
+          const change = (Math.random() - 0.5) * (id.includes('silver') ? 200 : 80);
+          current += change;
+          history.push(current);
+        }
+        priceHistories[id] = history;
+      }
+
+      // Render a sparkline from history
+      function renderSparkline(id) {
+        const history = priceHistories[id];
+        if (!history || history.length === 0) return;
+        const min = Math.min(...history);
+        const max = Math.max(...history);
+        const range = max - min;
+        const pts = history.map(p => {
+          if (range === 0) return 15;
+          return Math.round(25 - ((p - min) / range) * 20); // Scale Y to fit height 30 (range 5 to 25)
+        });
+        drawSparkline(id, pts);
+
+        const svg = document.getElementById(`spark-${id}`);
+        if (svg) {
+          const isUp = history[history.length - 1] >= history[0];
+          svg.setAttribute('class', isUp ? 'sparkline-svg up' : 'sparkline-svg down');
+        }
+      }
+
+      // Seed and render initial history
+      initPriceHistory('gold-999', 157500);
+      initPriceHistory('gold-22k', 144300);
+      initPriceHistory('silver-999', 253800);
+      renderSparkline('gold-999');
+      renderSparkline('gold-22k');
+      renderSparkline('silver-999');
+
+      // Render a rate row in the table
+      function updateRateRow(id, price, high, low) {
+        const priceCell = document.getElementById(`rate-${id}`);
+        const trendEl   = document.getElementById(`trend-${id}`);
+        const highEl    = document.getElementById(`high-${id}`);
+        const lowEl     = document.getElementById(`low-${id}`);
+        const svg       = document.getElementById(`spark-${id}`);
+        if (!priceCell) return;
+
+        const fmt = v => '\u20B9' + Math.round(v).toLocaleString('en-IN');
+        const prevRaw = priceCell.textContent.replace(/[\u20B9,]/g, '');
+        const prevNum = parseFloat(prevRaw) || 0;
+
+        if (prevNum && prevNum !== price) {
+          priceCell.classList.remove('flash-up', 'flash-down');
+          void priceCell.offsetWidth;
+          priceCell.classList.add(price > prevNum ? 'flash-up' : 'flash-down');
+        }
+        priceCell.textContent = fmt(price);
+        if (highEl) highEl.textContent = high ? fmt(high) : fmt(price * 1.0015);
+        if (lowEl)  lowEl.textContent  = low  ? fmt(low)  : fmt(price * 0.9985);
+
+        const base = baselines[id] || price;
+        const pct  = ((price - base) / base) * 100;
+        const isUp = pct >= 0;
+        if (trendEl) {
+          trendEl.className = isUp ? 'trend-indicator up' : 'trend-indicator down';
+          trendEl.innerHTML = `${isUp ? '\u25B2' : '\u25BC'} ${isUp ? '+' : ''}${pct.toFixed(2)}%`;
+        }
+
+        // Live rolling sparkline drawing
+        if (svg) {
+          const history = priceHistories[id];
+          if (history.length === 0) {
+            initPriceHistory(id, price);
+          } else if (history[history.length - 1] !== price) {
+            history.push(price);
+            if (history.length > 6) {
+              history.shift();
+            }
+          }
+          renderSparkline(id);
+        }
+      }
+
+      function updateTimestamp(isLive) {
+        const el = document.getElementById('rates-time');
+        if (!el) return;
+        const now = new Date();
+        el.textContent = 'Last Updated: ' + now.toLocaleString('en-IN', {hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,day:'numeric',month:'short',year:'numeric'}) + (isLive ? ' \u2022 Live Jodhpur Feed' : ' \u2022 Indicative');
+      }
+
+      // Connect to Anju Jewellery live rates socket
+      function connectSocketIO() {
+        const adminsocketurl = "https://starlinesupport.in:10001";
+        const prjName = "anjujewellery";
+
+        try {
+          const socket = io(adminsocketurl, { rejectUnauthorized: false });
+
+          socket.on('connect', () => {
+            console.log('Connected to Anju Jewellery live rates feed');
+            socket.emit('Client', prjName);
+            socket.emit('room', prjName);
+            updateTimestamp(true);
+          });
+
+          socket.on('message', (data) => {
+            try {
+              if (!data || !data.Rate) return;
+              const ratesList = data.Rate;
+
+              // Find Gold (995)
+              const gold995 = ratesList.find(r => r.Symbol && r.Symbol.toUpperCase().includes('GOLD') && r.Symbol.toUpperCase().includes('995'));
+              // Find Silver (Bank Peti)
+              let silver = ratesList.find(r => r.Symbol && r.Symbol.toUpperCase().includes('SILVER') && r.Symbol.toUpperCase().includes('BANK PETI'));
+              if (!silver) {
+                silver = ratesList.find(r => r.Symbol && r.Symbol.toUpperCase().includes('SILVER') && r.Symbol.toUpperCase().includes('99.50'));
+              }
+              if (!silver) {
+                silver = ratesList.find(r => r.Symbol && r.Symbol.toUpperCase().includes('SILVER'));
+              }
+
+              if (gold995) {
+                const basePrice = parseFloat(gold995.Ask) || parseFloat(gold995.Bid) || parseFloat(gold995.Purity);
+                if (basePrice) {
+                  const g999 = Math.round(basePrice / 0.995 * 0.999);
+                  const g22k = Math.round(basePrice / 0.995 * 0.916);
+
+                  const highRaw = parseFloat(gold995.High);
+                  const lowRaw = parseFloat(gold995.Low);
+
+                  const g999_high = highRaw ? Math.round(highRaw / 0.995 * 0.999) : Math.round(g999 * 1.0015);
+                  const g999_low = lowRaw ? Math.round(lowRaw / 0.995 * 0.999) : Math.round(g999 * 0.9985);
+
+                  const g22k_high = highRaw ? Math.round(highRaw / 0.995 * 0.916) : Math.round(g22k * 1.0015);
+                  const g22k_low = lowRaw ? Math.round(lowRaw / 0.995 * 0.916) : Math.round(g22k * 0.9985);
+
+                  // Calculate real daily trend from MCX Diff
+                  const mcxAsk = parseFloat(gold995.McxAsk) || parseFloat(gold995.McxBid) || 0;
+                  const diff = parseFloat(gold995.Diff) || 0;
+                  let gTrendPct = 0;
+                  if (mcxAsk && diff) {
+                    const mcxClose = mcxAsk - diff;
+                    gTrendPct = (diff / mcxClose) * 100;
+                  }
+
+                  // Update baseline dynamically to match daily close reference
+                  baselines['gold-999'] = Math.round(g999 / (1 + gTrendPct / 100));
+                  baselines['gold-22k'] = Math.round(g22k / (1 + gTrendPct / 100));
+
+                  updateRateRow('gold-999', g999, g999_high, g999_low);
+                  updateRateRow('gold-22k', g22k, g22k_high, g22k_low);
+
+                  rates['gold-999'] = g999;
+                  rates['gold-22k'] = g22k;
+                }
+              }
+
+              if (silver) {
+                const sPrice = parseFloat(silver.Ask) || parseFloat(silver.Bid) || parseFloat(silver.Purity);
+                if (sPrice) {
+                  const highRaw = parseFloat(silver.High);
+                  const lowRaw = parseFloat(silver.Low);
+
+                  const s_high = highRaw ? highRaw : Math.round(sPrice * 1.003);
+                  const s_low = lowRaw ? lowRaw : Math.round(sPrice * 0.997);
+
+                  // Calculate real daily trend from MCX Diff
+                  const mcxAsk = parseFloat(silver.McxAsk) || parseFloat(silver.McxBid) || 0;
+                  const diff = parseFloat(silver.Diff) || 0;
+                  let sTrendPct = 0;
+                  if (mcxAsk && diff) {
+                    const mcxClose = mcxAsk - diff;
+                    sTrendPct = (diff / mcxClose) * 100;
+                  }
+
+                  // Update baseline dynamically to match daily close reference
+                  baselines['silver-999'] = Math.round(sPrice / (1 + sTrendPct / 100));
+
+                  updateRateRow('silver-999', sPrice, s_high, s_low);
+                  rates['silver-999'] = sPrice;
+                }
+              }
+
+              baselineSet = true;
+              updateTimestamp(true);
+            } catch (e) {
+              console.warn('Socket.io message parse error:', e);
+            }
+          });
+
+          socket.on('disconnect', () => {
+            updateTimestamp(false);
+          });
+
+          socket.on('connect_error', (err) => {
+            console.warn('Socket.io connection failed. Using fallback ticker.', err);
+            updateTimestamp(false);
+            if (!window.fallbackTickerStarted) {
+              startFallbackTicker();
+            }
+          });
+        } catch (e) {
+          console.error('Socket.io initialization error:', e);
+          startFallbackTicker();
+        }
+      }
+
+      // Fallback ticker (random walk) when Socket.io is unavailable
+      function startFallbackTicker() {
+        if (window.fallbackTickerStarted) return;
+        window.fallbackTickerStarted = true;
+
+        updateRateRow('gold-999',  rates['gold-999'],  rates['gold-999']  * 1.0015, rates['gold-999']  * 0.9985);
+        updateRateRow('gold-22k',  rates['gold-22k'],  rates['gold-22k']  * 1.0015, rates['gold-22k']  * 0.9985);
+        updateRateRow('silver-999',rates['silver-999'], rates['silver-999']* 1.003,  rates['silver-999']* 0.997);
+        updateTimestamp(false);
+        setInterval(() => {
+          rates['gold-999']   = Math.round(rates['gold-999']   + (Math.random()-0.49)*30);
+          rates['gold-22k']   = Math.round(rates['gold-999']   * 0.9166);
+          rates['silver-999'] = Math.round(rates['silver-999'] + (Math.random()-0.51)*60);
+          updateRateRow('gold-999',  rates['gold-999'],  0, 0);
+          updateRateRow('gold-22k',  rates['gold-22k'],  0, 0);
+          updateRateRow('silver-999',rates['silver-999'], 0, 0);
+          updateTimestamp(false);
+        }, 4000);
+      }
+
+
+
+      // Start live rates
+      if (typeof io !== 'undefined') {
+        connectSocketIO();
+      } else {
+        startFallbackTicker();
+      }
+
+      /* ==========================================
+         GALLERY CATEGORY TABS
+         ========================================== */
+      const galleryTabBtns = document.querySelectorAll('.gallery-tab-btn');
+      const galleryPanels = document.querySelectorAll('.gallery-panel');
+
+      galleryTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const panelId = btn.getAttribute('data-panel');
+
+          // Update buttons
+          galleryTabBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+
+          // Update panels
+          galleryPanels.forEach(panel => {
+            panel.classList.remove('active');
+          });
+          const target = document.getElementById(`panel-${panelId}`);
+          if (target) {
+            target.classList.add('active');
+          }
+        });
+      });
+    });
+
+    // Helper function for scroll down arrow click
+    function scrollToSection(selector) {
+      const targetElement = document.querySelector(selector);
+      if (targetElement) {
+        const headerHeight = document.getElementById("main-header").offsetHeight;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+      }
+    }
+  </script>
+</body>
+</html>
